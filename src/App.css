@@ -1,0 +1,22 @@
+body {
+	color: #121212;
+	margin-bottom: 400px;
+}
+
+.app {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#bg-overlay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 0;
+	backface-visibility: hidden;
+	transform: translate3d(0, 0, 0);
+	background: hsla(285, 89%, 13%, 0.41960784313725);
+}

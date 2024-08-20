@@ -14,7 +14,7 @@ These instructions will help you set up and run the project on your local machin
 
 ### Running the Project
 
-To start the development server, run: `npm start`
+To start the development server, run: `npm run dev`
 
 The application will be available at `http://localhost:3000`.
 

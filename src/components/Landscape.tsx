@@ -46,7 +46,7 @@ const Landscape: React.FC = () => {
 			sky.scale.setScalar(450000);
 			(sky.material as THREE.ShaderMaterial).uniforms.turbidity.value = 13;
 			(sky.material as THREE.ShaderMaterial).uniforms.rayleigh.value = 1.2;
-			(sky.material as THREE.ShaderMaterial).uniforms.luminance.value = 1;
+			(sky.material as THREE.ShaderMaterial).uniforms.safeLuminance.value = 1;
 			(sky.material as THREE.ShaderMaterial).uniforms.mieCoefficient.value = 0.1;
 			(sky.material as THREE.ShaderMaterial).uniforms.mieDirectionalG.value = 0.58;
 			scene.add(sky);

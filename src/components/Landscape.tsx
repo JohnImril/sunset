@@ -12,7 +12,7 @@ const Landscape: React.FC = () => {
 		let scene: THREE.Scene, renderer: THREE.WebGLRenderer, camera: THREE.PerspectiveCamera;
 		let terrain: THREE.Mesh;
 		const mouse = { x: 0, y: 0, xDamped: 0, yDamped: 0 };
-		const isMobile = typeof window.orientation !== "undefined";
+		const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 		const width = window.innerWidth;
 		const height = window.innerHeight;
 

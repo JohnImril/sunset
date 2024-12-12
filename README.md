@@ -1,59 +1,108 @@
-# sunset
+# Sunset
 
-This project is a 3D landscape visualization built with Three.js and React. It uses custom shaders for rendering the sky and terrain, providing a dynamic and interactive experience.
+**Sunset** is a 3D landscape visualization that leverages **Three.js** and **React** to create an immersive, dynamic environment. By combining custom shaders and interactive controls, this project simulates a stylized terrain and sky that respond in real-time to user input.
+
+## Features
+
+- **Real-Time Rendering:** Experience fluid, interactive 3D graphics powered by Three.js.
+- **Custom Shaders:** A custom vertex and fragment shader pipeline for the terrain and sky ensures visually rich and unique aesthetics.
+- **Dynamic Interaction:** The landscape’s appearance shifts with mouse movement, offering a more engaging and exploratory experience.
+- **Modern Stack:** Built with React for a modular and maintainable codebase, simplifying updates and improvements.
 
 ## Getting Started
 
-These instructions will help you set up and run the project on your local machine.
+Follow these steps to run the project locally:
+
+### Prerequisites
+
+- **Node.js** (v14 or later recommended)
+- **npm**
 
 ### Installation
 
-1. Clone the repository: `git clone https://github.com/johnimril/sunset.git`
-2. Navigate to the project directory: `cd sunset`
-3. Install the dependencies: `npm install`
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/johnimril/sunset.git
+   ```
+
+2. **Navigate to the project directory:**
+
+   ```bash
+   cd sunset
+   ```
+
+3. **Install the dependencies:**
+
+   ```bash
+   npm install
+   ```
 
 ### Running the Project
 
-To start the development server, run: `npm run dev`
+Start the development server with:
 
-The application will be available at `http://localhost:3000`.
+```bash
+npm run dev
+```
+
+The application will be served at [http://localhost:5173](http://localhost:5173).
 
 ### Project Structure
 
--   `src/components/Landscape.tsx`: Main component for the 3D landscape.
--   `src/components/Sky.tsx`: Component for rendering the sky using a custom shader.
--   `src/shaders/custom-vertex.glsl`: Vertex shader for the terrain.
--   `src/shaders/custom-fragment.glsl`: Fragment shader for the terrain.
+- **`src/components/Landscape.tsx`**: The main component that sets up and renders the 3D terrain.
+- **`src/components/Sky.tsx`**: A dedicated component for rendering the sky with a custom shader.
+- **`src/shaders/custom-vertex.glsl`**: Vertex shader logic for shaping and deforming the terrain.
+- **`src/shaders/custom-fragment.glsl`**: Fragment shader logic for coloring and shading the terrain’s surface.
 
-### Usage
+## Usage
 
-The project displays a dynamic 3D landscape. The terrain's appearance changes based on mouse movements.
+By moving your mouse over the rendered scene, you can subtly alter the terrain’s appearance, simulating a shifting landscape as the sky and environment adapt in real time.
 
-### Deployment
+## Deployment
 
-To build the project for production, run: `npm run build`
+To build the project for production:
 
-This will create an optimized build of the application in the `build` directory.
+```bash
+npm run build
+```
 
-### Contributing
+An optimized version of the application will be generated in the `build/` directory, ready for deployment on any static file hosting service.
 
-Feel free to contribute to this project by opening issues and submitting pull requests.
+## Contributing
 
-1. Fork the repository.
-2. Create your feature branch (`git checkout -b feature/my-feature`).
-3. Commit your changes (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature/my-feature`).
-5. Open a pull request.
+Contributions are welcome! To propose changes, improvements, or new features:
 
-### License
+1. **Fork the repository**.
+2. **Create a feature branch**:  
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+   ```bash
+   git checkout -b feature/my-feature
+   ```
 
-### Acknowledgements
+3. **Commit your changes**:  
 
--   The creators of GLSL noise functions (zz85)
--   Special thanks to the community (Dan Tocchini)
+   ```bash
+   git commit -m "Add some feature"
+   ```
 
-### Contact
+4. **Push to your branch**:  
 
-For any questions or suggestions, please contact [john.maks595@gmail.com].
+   ```bash
+   git push origin feature/my-feature
+   ```
+
+5. **Open a pull request** and describe your changes.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+- Special thanks to **zz85** for their GLSL noise functions.
+- Gratitude goes to **Dan Tocchini** and the broader Three.js community for insights and inspiration.
+
+## Contact
+
+For questions, feedback, or suggestions, feel free to reach out at [john.maks595@gmail.com](mailto:john.maks595@gmail.com).

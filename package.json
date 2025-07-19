@@ -1,7 +1,7 @@
 {
 	"name": "sunset",
 	"private": true,
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"homepage": "https://johnimril.github.io/sunset",
 	"scripts": {
@@ -22,7 +22,7 @@
 		"@types/three": "^0.178.0",
 		"@typescript-eslint/eslint-plugin": "^8.37.0",
 		"@typescript-eslint/parser": "^8.37.0",
-		"@vitejs/plugin-react": "^4.6.0",
+		"@vitejs/plugin-react": "^4.7.0",
 		"eslint": "^9.31.0",
 		"eslint-plugin-react-hooks": "^5.2.0",
 		"eslint-plugin-react-refresh": "^0.4.20",

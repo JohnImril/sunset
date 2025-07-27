@@ -15,7 +15,7 @@ Follow these steps to run the project locally:
 
 ### Prerequisites
 
-- **Node.js** (v14 or later recommended)
+- **Node.js** (v22 or later recommended)
 - **npm**
 
 ### Installation

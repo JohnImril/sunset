@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import vertexShader from "../shaders/custom-vertex.glsl";
 import fragmentShader from "../shaders/custom-fragment.glsl";
+import { SCENE_CONFIG } from "./config";
 
 export type TerrainUniforms = {
 	time: { value: number };
@@ -12,8 +13,13 @@ export type TerrainUniforms = {
 	color: { value: THREE.Color };
 };
 
-export const createTerrainGeometry = () => {
-	return new THREE.PlaneGeometry(100, 400, 400, 400);
+export const createTerrainGeometry = (widthSegments: number, heightSegments: number) => {
+	return new THREE.PlaneGeometry(
+		SCENE_CONFIG.terrainWidth,
+		SCENE_CONFIG.terrainDepth,
+		widthSegments,
+		heightSegments
+	);
 };
 
 export const createTerrainMaterial = () => {
@@ -35,9 +41,9 @@ export const createTerrainMaterial = () => {
 	});
 };
 
-export const createTerrainMesh = () => {
-	const terrain = new THREE.Mesh(createTerrainGeometry(), createTerrainMaterial());
-	terrain.position.z = -180;
+export const createTerrainMesh = (widthSegments: number, heightSegments: number) => {
+	const terrain = new THREE.Mesh(createTerrainGeometry(widthSegments, heightSegments), createTerrainMaterial());
+	terrain.position.z = SCENE_CONFIG.terrainStartZ;
 	terrain.rotation.x = -Math.PI / 2;
 	return terrain;
 };

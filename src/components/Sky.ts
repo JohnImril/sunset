@@ -1,27 +1,15 @@
 import * as THREE from "three";
 
-class Sky extends THREE.Mesh {
-	constructor() {
-		const material = new THREE.ShaderMaterial({
-			fragmentShader: Sky.fragmentShader,
-			vertexShader: Sky.vertexShader,
-			uniforms: THREE.UniformsUtils.clone(Sky.uniforms),
-			side: THREE.BackSide,
-		});
+export const skyUniforms = {
+	safeLuminance: { value: 1 },
+	turbidity: { value: 2 },
+	rayleigh: { value: 1 },
+	mieCoefficient: { value: 0.005 },
+	mieDirectionalG: { value: 0.8 },
+	sunPosition: { value: new THREE.Vector3() },
+};
 
-		super(new THREE.BoxGeometry(1, 1, 1), material);
-	}
-
-	static uniforms = {
-		safeLuminance: { value: 1 },
-		turbidity: { value: 2 },
-		rayleigh: { value: 1 },
-		mieCoefficient: { value: 0.005 },
-		mieDirectionalG: { value: 0.8 },
-		sunPosition: { value: new THREE.Vector3() },
-	};
-
-	static vertexShader = `
+export const skyVertexShader = `
     uniform vec3 sunPosition;
     uniform float rayleigh;
     uniform float turbidity;
@@ -68,9 +56,9 @@ class Sky extends THREE.Mesh {
       vBetaR = totalRayleigh * rayleighCoefficient;
       vBetaM = totalMie(turbidity) * mieCoefficient;
     }
-  `;
+`;
 
-	static fragmentShader = `
+export const skyFragmentShader = `
     varying vec3 vWorldPosition;
     varying vec3 vSunDirection;
     varying float vSunfade;
@@ -140,7 +128,15 @@ class Sky extends THREE.Mesh {
       vec3 retColor = pow(color, vec3(1.0 / (1.2 + (1.2 * vSunfade))));
       gl_FragColor = vec4(retColor, 1.0);
     }
-  `;
-}
+`;
 
-export default Sky;
+export const createSky = () => {
+	const material = new THREE.ShaderMaterial({
+		fragmentShader: skyFragmentShader,
+		vertexShader: skyVertexShader,
+		uniforms: THREE.UniformsUtils.clone(skyUniforms),
+		side: THREE.BackSide,
+	});
+
+	return new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
+};

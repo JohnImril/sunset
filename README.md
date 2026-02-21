@@ -1,108 +1,91 @@
 # Sunset
 
-**Sunset** is a 3D landscape visualization that leverages **Three.js** and **React** to create an immersive, dynamic environment. By combining custom shaders and interactive controls, this project simulates a stylized terrain and sky that respond in real-time to user input.
+Sunset is an interactive WebGL scene built with React, Three.js, Vite, and custom GLSL shaders.
 
 ## Features
 
-- **Real-Time Rendering:** Experience fluid, interactive 3D graphics powered by Three.js.
-- **Custom Shaders:** A custom vertex and fragment shader pipeline for the terrain and sky ensures visually rich and unique aesthetics.
-- **Dynamic Interaction:** The landscape’s appearance shifts with mouse movement, offering a more engaging and exploratory experience.
-- **Modern Stack:** Built with React for a modular and maintainable codebase, simplifying updates and improvements.
+- Realtime shader-based terrain animation.
+- Procedural sky shader with configurable atmospheric uniforms.
+- Mouse/touch interaction that affects camera and terrain distortion.
+- Visibility-aware render loop (animation pauses when tab is hidden).
+- Split production bundle (`index` + `three` chunks) for better caching.
+
+## Tech Stack
+
+- React 19
+- Three.js
+- TypeScript
+- Vite 7
+- `vite-plugin-glsl`
 
 ## Getting Started
 
-Follow these steps to run the project locally:
-
 ### Prerequisites
 
-- **Node.js** (v22 or later recommended)
-- **npm**
+- Node.js 22+
+- npm
 
-### Installation
+### Install
 
-1. **Clone the repository:**
+```bash
+npm install
+```
 
-   ```bash
-   git clone https://github.com/johnimril/sunset.git
-   ```
-
-2. **Navigate to the project directory:**
-
-   ```bash
-   cd sunset
-   ```
-
-3. **Install the dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-### Running the Project
-
-Start the development server with:
+### Run Development Server
 
 ```bash
 npm run dev
 ```
 
-The application will be served at [http://localhost:5173](http://localhost:5173).
+Default dev URL: `http://localhost:5173`
 
-### Project Structure
-
-- **`src/components/Landscape.tsx`**: The main component that sets up and renders the 3D terrain.
-- **`src/components/Sky.tsx`**: A dedicated component for rendering the sky with a custom shader.
-- **`src/shaders/custom-vertex.glsl`**: Vertex shader logic for shaping and deforming the terrain.
-- **`src/shaders/custom-fragment.glsl`**: Fragment shader logic for coloring and shading the terrain’s surface.
-
-## Usage
-
-By moving your mouse over the rendered scene, you can subtly alter the terrain’s appearance, simulating a shifting landscape as the sky and environment adapt in real time.
-
-## Deployment
-
-To build the project for production:
+### Build Production
 
 ```bash
 npm run build
 ```
 
-An optimized version of the application will be generated in the `build/` directory, ready for deployment on any static file hosting service.
+Production files are emitted to `dist/`.
 
-## Contributing
+### Preview Production Build
 
-Contributions are welcome! To propose changes, improvements, or new features:
+```bash
+npm run preview
+```
 
-1. **Fork the repository**.
-2. **Create a feature branch**:  
+## Architecture
 
-   ```bash
-   git checkout -b feature/my-feature
-   ```
+`src/components/Landscape.tsx`
+- React lifecycle wrapper.
+- Creates and disposes scene instance.
 
-3. **Commit your changes**:  
+`src/scene/LandscapeScene.ts`
+- Scene orchestration.
+- Input listeners, resize handling, render loop, cleanup.
 
-   ```bash
-   git commit -m "Add some feature"
-   ```
+`src/scene/terrainFactory.ts`
+- Terrain mesh/material/geometry factories.
 
-4. **Push to your branch**:  
+`src/components/Sky.ts`
+- Sky mesh factory and shader/uniform definitions.
 
-   ```bash
-   git push origin feature/my-feature
-   ```
+`src/scene/config.ts`
+- Centralized scene constants (camera, fog, quality, DPR caps).
 
-5. **Open a pull request** and describe your changes.
+`src/scene/math.ts`
+- Shared math helpers (`mapRange`, `lerp`).
+
+`src/shaders/custom-vertex.glsl`
+- Vertex displacement logic.
+
+`src/shaders/custom-fragment.glsl`
+- Terrain fragment shading logic.
+
+## Notes
+
+- On mobile, terrain segment density is reduced for better performance.
+- Renderer pixel ratio is capped to avoid excessive GPU load on high-DPI devices.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
-
-## Acknowledgements
-
-- Special thanks to **zz85** for their GLSL noise functions.
-- Gratitude goes to **Dan Tocchini** and the broader Three.js community for insights and inspiration.
-
-## Contact
-
-For questions, feedback, or suggestions, feel free to reach out at [john.maks595@gmail.com](mailto:john.maks595@gmail.com).
+[MIT](LICENSE)

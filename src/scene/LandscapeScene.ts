@@ -1,17 +1,23 @@
 import * as THREE from "three";
 import { createSky } from "../components/Sky";
 import { createTerrainMesh } from "./terrainFactory";
-
-const MOBILE_UA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+import { MOBILE_UA, SCENE_CONFIG, TERRAIN_SEGMENTS } from "./config";
+import { lerp, mapRange } from "./math";
 
 export const createLandscapeScene = (container: HTMLDivElement) => {
 	const isMobile = MOBILE_UA.test(navigator.userAgent);
 	const mouse = { x: 0, y: 0, xDamped: 0, yDamped: 0 };
 
 	const scene = new THREE.Scene();
-	const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000);
+	const camera = new THREE.PerspectiveCamera(
+		SCENE_CONFIG.cameraFov,
+		window.innerWidth / window.innerHeight,
+		SCENE_CONFIG.cameraNear,
+		SCENE_CONFIG.cameraFar
+	);
 	const renderer = new THREE.WebGLRenderer({ antialias: true });
-	const terrain = createTerrainMesh();
+	const terrainSegments = isMobile ? TERRAIN_SEGMENTS.mobile : TERRAIN_SEGMENTS.desktop;
+	const terrain = createTerrainMesh(terrainSegments, terrainSegments);
 	let frameId = 0;
 	let isRunning = false;
 
@@ -23,8 +29,12 @@ export const createLandscapeScene = (container: HTMLDivElement) => {
 			return;
 		}
 		const touchEvent = e as TouchEvent;
-		mouse.x = touchEvent.changedTouches[0].clientX;
-		mouse.y = touchEvent.changedTouches[0].clientY;
+		const touch = touchEvent.changedTouches[0] ?? touchEvent.touches[0];
+		if (!touch) {
+			return;
+		}
+		mouse.x = touch.clientX;
+		mouse.y = touch.clientY;
 	};
 
 	const onResize = () => {
@@ -34,7 +44,7 @@ export const createLandscapeScene = (container: HTMLDivElement) => {
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
 
-		const maxPixelRatio = isMobile ? 1.5 : 2;
+		const maxPixelRatio = isMobile ? SCENE_CONFIG.maxMobilePixelRatio : SCENE_CONFIG.maxDesktopPixelRatio;
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPixelRatio));
 		renderer.setSize(width, height);
 	};
@@ -54,10 +64,10 @@ export const createLandscapeScene = (container: HTMLDivElement) => {
 		const uniforms = terrain.material.uniforms;
 
 		uniforms.time.value = time;
-		uniforms.scroll.value = time + map(mouse.yDamped, 0, height, 0, 4);
+		uniforms.scroll.value = time + mapRange(mouse.yDamped, 0, height, 0, 4);
 		uniforms.distortCenter.value = Math.sin(time) * 0.1;
-		uniforms.roadWidth.value = map(mouse.xDamped, 0, width, 1, 4.5);
-		camera.position.y = map(mouse.yDamped, 0, height, 4, 11);
+		uniforms.roadWidth.value = mapRange(mouse.xDamped, 0, width, 1, 4.5);
+		camera.position.y = mapRange(mouse.yDamped, 0, height, 4, 11);
 
 		renderer.render(scene, camera);
 	};
@@ -74,12 +84,12 @@ export const createLandscapeScene = (container: HTMLDivElement) => {
 	};
 
 	const setupScene = () => {
-		const fogColor = new THREE.Color(0x333333);
+		const fogColor = new THREE.Color(SCENE_CONFIG.fogColor);
 		scene.background = fogColor;
-		scene.fog = new THREE.Fog(fogColor, 0, 400);
+		scene.fog = new THREE.Fog(fogColor, SCENE_CONFIG.fogNear, SCENE_CONFIG.fogFar);
 
-		camera.position.y = 8;
-		camera.position.z = 4;
+		camera.position.y = SCENE_CONFIG.cameraStartY;
+		camera.position.z = SCENE_CONFIG.cameraStartZ;
 		scene.add(new THREE.AmbientLight(0xffffff, 1));
 
 		const sky = createSky();
@@ -156,12 +166,4 @@ export const createLandscapeScene = (container: HTMLDivElement) => {
 	};
 
 	return { start, dispose };
-};
-
-const map = (value: number, start1: number, stop1: number, start2: number, stop2: number) => {
-	return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-};
-
-const lerp = (start: number, end: number, amt: number) => {
-	return (1 - amt) * start + amt * end;
 };

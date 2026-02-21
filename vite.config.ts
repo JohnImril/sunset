@@ -11,5 +11,14 @@ export default defineConfig({
 		}),
 		glsl(),
 	],
+	build: {
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					three: ["three"],
+				},
+			},
+		},
+	},
 	base: "./",
 });

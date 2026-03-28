@@ -1,7 +1,7 @@
 {
 	"name": "sunset",
 	"private": true,
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"type": "module",
 	"homepage": "https://johnimril.github.io/sunset",
 	"scripts": {
@@ -17,7 +17,7 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.39.4",
-		"@rolldown/plugin-babel": "^0.2.1",
+		"@rolldown/plugin-babel": "^0.2.2",
 		"@types/node": "^25.5.0",
 		"@types/react": "^19.2.8",
 		"@types/react-dom": "^19.2.3",
@@ -30,8 +30,8 @@
 		"globals": "^17.4.0",
 		"prettier": "^3.7.4",
 		"typescript": "^5.9.2",
-		"typescript-eslint": "^8.57.1",
-		"vite": "^8.0.0",
+		"typescript-eslint": "^8.57.2",
+		"vite": "^8.0.3",
 		"vite-plugin-glsl": "^1.5.6"
 	}
 }

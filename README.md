@@ -2,6 +2,8 @@
 
 Sunset is an interactive WebGL scene built with React, Three.js, Vite, and custom GLSL shaders.
 
+**Live demo:** https://johnimril.github.io/sunset/
+
 ## Features
 
 - Realtime shader-based terrain animation.

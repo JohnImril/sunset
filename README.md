@@ -17,7 +17,7 @@ Sunset is an interactive WebGL scene built with React, Three.js, Vite, and custo
 - React 19
 - Three.js
 - TypeScript
-- Vite 7
+- Vite 8
 - `vite-plugin-glsl`
 
 ## Getting Started

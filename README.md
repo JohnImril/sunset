@@ -49,6 +49,16 @@ npm run build
 
 Production files are emitted to `dist/`.
 
+### Test
+
+```bash
+npm test
+```
+
+The suite covers scene math, terrain construction, and the mobile geometry
+budget. See [docs/performance.md](docs/performance.md) for reproducible
+performance evidence.
+
 ### Preview Production Build
 
 ```bash
